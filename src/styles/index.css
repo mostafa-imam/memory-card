@@ -112,3 +112,12 @@ h6 {
 }
 
 /* ----------common------------- */
+
+#root {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.4)), url("../assets/pokemon-bg-on-Imgur.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    min-height: 100vh;
+}
