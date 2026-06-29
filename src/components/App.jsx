@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import '../styles/App.css';
 import Card from './card.jsx';
 
-export default App;
-
-function App() {
+export default function App() {
   const [pokemons, setPokemons] = useState([]);
   const [score, setScore] = useState(0);
-  const [bestScore, setBestScore] = useState([0]);
+  const [bestScore, setBestScore] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,9 +19,9 @@ function App() {
       try {
         const results = await Promise.all(promises);
         const pokemonData = results.map((json) => ({
-          id: json.id,
           sprite: json.sprites.front_default,
           name: json.name,
+          id: json.id,
           clicked: false,
         }));
 
@@ -39,12 +37,13 @@ function App() {
   return (
     <>
       <header className="header">
-        <h1 className="page-title">Pokemon Memory Game</h1>
+        <h1 className="page-title">
+          <span className="poke">Pokemon</span>{' '}
+          <span className="memo-game">Memory Game</span>
+        </h1>
         <div className="score-wrapper">
-          <p className="score">Score: {score || 0}</p>
-          <p className="best-score">
-            Best Score: {Math.max(...bestScore) || 0}
-          </p>
+          <p className="score">Score: {score}</p>
+          <p className="best-score">Best Score: {bestScore}</p>
         </div>
         <p className="instructions">
           Test your memory! Click the images to rack up points, but a duplicate
@@ -57,7 +56,7 @@ function App() {
             <Card
               onClick={() => {
                 if (pokemon.clicked) {
-                  setBestScore([...bestScore, score]);
+                  setBestScore((prev) => Math.max(prev, score));
                   setScore(0);
                   setPokemons(pokemons.map((p) => ({ ...p, clicked: false })));
                   console.log('Game Over');
@@ -77,7 +76,7 @@ function App() {
 
                 if (shuffledPokemons.every((p) => p.clicked === true)) {
                   console.log('You won! All of them are true!');
-                  setBestScore([...bestScore, score + 1]);
+                  setBestScore((prev) => Math.max(prev, score));
                   setScore(0);
                   setPokemons(
                     shuffledPokemons.map((p) => ({ ...p, clicked: false })),
@@ -88,7 +87,7 @@ function App() {
                 setPokemons(shuffledPokemons);
                 setScore(score + 1);
               }}
-              key={pokemon.name}
+              key={pokemon.id}
               img={pokemon.sprite}
               imageTitle={pokemon.name}
               alt={pokemon.name}

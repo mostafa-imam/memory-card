@@ -107,8 +107,17 @@ h6 {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Orbitron';
+    src: url('../fonts/Orbitron-Regular.woff2') format('woff2'),
+        url('../fonts/Orbitron-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 * {
-    font-family: "robotoregular", system-ui, sans-serif;
+    font-family: "Orbitron", "robotoregular", system-ui, sans-serif;
 }
 
 /* ----------common------------- */
